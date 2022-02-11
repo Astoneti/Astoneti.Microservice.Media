@@ -1,1 +1,1 @@
-# Astoneti-Astoneti.Microservice.Media
+# Astoneti.Microservice.Media
