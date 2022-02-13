@@ -1,6 +1,5 @@
-﻿using Astoneti.Microservice.Media.Business.Contracts;
-using Astoneti.Microservice.Media.Business.Models;
-using Astoneti.Microservice.Media.Data.Entities;
+﻿using Astoneti.Microservice.Media.Business.Models;
+using Astoneti.Microservice.Media.Models;
 using AutoMapper;
 
 namespace Astoneti.Microservice.Media.Mappings
@@ -9,13 +8,7 @@ namespace Astoneti.Microservice.Media.Mappings
     {
         public NewsProfile()
         {
-            CreateMap<NewsEntity, NewsDto>().ReverseMap();
-
-            CreateMap<NewsDto, NewsEntity>().ReverseMap();
-
-            CreateMap<INewsAddDto, NewsEntity>().ReverseMap();
-
-            CreateMap<INewsEditDto, NewsEntity>().ReverseMap();
+            CreateMap<NewsModel, NewsDto>().ReverseMap();
         }
     }
 }
