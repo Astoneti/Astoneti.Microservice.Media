@@ -1,4 +1,8 @@
+using Astoneti.Microservice.Media.Business;
+using Astoneti.Microservice.Media.Business.Contracts;
 using Astoneti.Microservice.Media.Data;
+using Astoneti.Microservice.Media.Data.Contracts;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -23,6 +27,12 @@ namespace Astoneti.Microservice.Media
         {
             services.AddDbContext<MediaDbContext>(options =>
               options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAutoMapper(typeof(Startup));
+
+            services.AddTransient<INewsService, NewsService>();
+
+            services.AddTransient<INewsRepository, NewsRepository>();
 
             services.AddControllers();
 
