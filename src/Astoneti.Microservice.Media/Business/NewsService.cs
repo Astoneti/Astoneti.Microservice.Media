@@ -1,5 +1,6 @@
 ﻿using Astoneti.Microservice.Media.Business.Contracts;
 using Astoneti.Microservice.Media.Business.Models;
+using Astoneti.Microservice.Media.Data.Contracts;
 using Astoneti.Microservice.Media.Data.Entities;
 using AutoMapper;
 using System.Collections.Generic;
@@ -11,9 +12,9 @@ namespace Astoneti.Microservice.Media.Business
         private readonly INewsRepository _newsRepository;
         private readonly IMapper _mapper;
 
-        public NewsService(INewsRepository ownerRepository, IMapper mapper)
+        public NewsService(INewsRepository newsRepository, IMapper mapper)
         {
-            _newsRepository = neswsRepository;
+            _newsRepository = newsRepository;
             _mapper = mapper;
         }
 
