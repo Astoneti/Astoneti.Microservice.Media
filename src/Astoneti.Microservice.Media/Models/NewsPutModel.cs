@@ -1,8 +1,9 @@
-﻿using System;
+﻿using Astoneti.Microservice.Media.Business.Contracts;
+using System;
 
-namespace Astoneti.Microservice.Media.Business.Models
+namespace Astoneti.Microservice.Media.Models
 {
-    public class NewsDto
+    public class NewsPutModel : INewsEditDto
     {
         public int Id { get; set; }
 

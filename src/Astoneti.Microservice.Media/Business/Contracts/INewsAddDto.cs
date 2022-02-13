@@ -2,8 +2,10 @@
 {
     public interface INewsAddDto
     {
-        public string Title { get; set; }
+        public int Id { get; }
 
-        public string Body { get; set; }
+        public string Title { get; }
+
+        public string Body { get; }
     }
 }
