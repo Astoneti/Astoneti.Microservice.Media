@@ -122,12 +122,12 @@ namespace Astoneti.Microservice.Media.IntegrationTests
         }
 
         [Fact]
-        public async Task PostAsync_ReturnsCreated() //Actual : InternalServerError in Assert Equal()!!! but use to be Created!!!
+        public async Task PostAsync_ReturnsCreated() 
         {
             // Arrange
             var postModel = new NewsPostModel
             {
-                Id = 1,
+                Id = 3,
                 Title = "Test Title",
                 Body = "Test Body",
             };
@@ -147,7 +147,14 @@ namespace Astoneti.Microservice.Media.IntegrationTests
 
             Assert.NotNull(resultValue);
             Assert.Equal(postModel.Id, resultValue.Id);
+            Assert.Equal(postModel.Title, resultValue.Title);
+            Assert.Equal(postModel.Body, resultValue.Body);
+
             var entity = Assert.Single(_factory.DbContext.Set<NewsEntity>(), x => x.Id == postModel.Id);
+            Assert.NotNull(entity);
+            Assert.Equal(postModel.Id, entity.Id);
+            Assert.Equal(postModel.Title, entity.Title);
+            Assert.Equal(postModel.Body, resultValue.Body);
         }
 
         [Fact]
