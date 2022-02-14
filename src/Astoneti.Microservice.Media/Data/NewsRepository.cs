@@ -10,51 +10,51 @@ namespace Astoneti.Microservice.Media.Data
     {
         public NewsRepository(MediaDbContext dbContext)
         {
-            AppContext = dbContext;
+            DbContext = dbContext;
         }
 
-        protected DbContext AppContext { get; }
+        protected DbContext DbContext { get; }
 
         public List<NewsEntity> GetList()
         {
-            return AppContext.Set<NewsEntity>().ToList();
+            return DbContext.Set<NewsEntity>().ToList();
         }
 
         public NewsEntity Get(int id)
         {
-            return AppContext.Set<NewsEntity>().FirstOrDefault(x => x.Id == id);
+            return DbContext.Set<NewsEntity>().FirstOrDefault(x => x.Id == id);
         }
 
         public NewsEntity Insert(NewsEntity entity)
         {
-            AppContext.Set<NewsEntity>().Add(entity);
+            DbContext.Set<NewsEntity>().Add(entity);
 
-            AppContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return entity;
         }
 
         public NewsEntity Update(NewsEntity entity)
         {
-            AppContext.Set<NewsEntity>().Update(entity);
+            DbContext.Set<NewsEntity>().Update(entity);
 
-            AppContext.SaveChanges();
+            DbContext.SaveChanges();
 
             return entity;
         }
 
         public bool Delete(int id)
         {
-            var entity = AppContext.Set<NewsEntity>().FirstOrDefault(_ => _.Id == id);
+            var entity = DbContext.Set<NewsEntity>().FirstOrDefault(x => x.Id == id);
 
             if (entity == null)
             {
                 return false;
             }
 
-            AppContext.Set<NewsEntity>().Remove(entity);
+            DbContext.Set<NewsEntity>().Remove(entity);
 
-            var result = AppContext.SaveChanges();
+            var result = DbContext.SaveChanges();
 
             return result == 1;
         }

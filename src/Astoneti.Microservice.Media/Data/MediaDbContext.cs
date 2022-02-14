@@ -8,7 +8,6 @@ namespace Astoneti.Microservice.Media.Data
         public MediaDbContext(DbContextOptions dbContextOptions)
             : base(dbContextOptions)
         {
-
         }
         public DbSet<NewsEntity> News { get; set; }
     }

@@ -8,11 +8,11 @@ using Xunit.Abstractions;
 
 namespace Astoneti.Microservice.Media.IntegrationTests
 {
-    public class CustomWebApplicationFactory : WebApplicationFactory<Startup>
+    public class TestWebApplicationFactory : WebApplicationFactory<Startup>
     {
         private readonly DbContextOptions _dbContextOptions;
 
-        public CustomWebApplicationFactory()
+        public TestWebApplicationFactory()
         {
             _dbContextOptions = new DbContextOptionsBuilder()
                 .UseInMemoryDatabase("InMemoryDbForTesting")
