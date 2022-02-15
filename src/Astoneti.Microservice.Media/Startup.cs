@@ -37,6 +37,10 @@ namespace Astoneti.Microservice.Media
 
             services.AddTransient<INewsRepository, NewsRepository>();
 
+             services.AddTransient<ICommentService, CommentService>();
+
+            services.AddTransient<ICommentRepository, CommentRepository>();
+
             services.AddControllers();
 
             services.AddSwaggerGen(c =>

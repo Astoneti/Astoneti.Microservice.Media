@@ -19,6 +19,29 @@ namespace Astoneti.Microservice.Media.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
 
+            modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.CommentEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("Comments");
+                });
+
             modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.NewsEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -38,6 +61,20 @@ namespace Astoneti.Microservice.Media.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
+                });
+
+            modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.CommentEntity", b =>
+                {
+                    b.HasOne("Astoneti.Microservice.Media.Data.Entities.NewsEntity", "News")
+                        .WithMany("Comments")
+                        .HasForeignKey("NewsId");
+
+                    b.Navigation("News");
+                });
+
+            modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.NewsEntity", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }
