@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Xunit;
@@ -17,11 +18,13 @@ namespace Astoneti.Microservice.Media.IntegrationTests
     {
         private readonly TestWebApplicationFactory _factory;
 
+        private  HttpClient _client { get; set; }
+
         public NewsControllerTests(ITestOutputHelper output)
         {
             _factory = new TestWebApplicationFactory
             {
-                Output = output,
+                Output = output
             };
 
             Seed();
@@ -60,10 +63,10 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             // Arrange
             var expectedlist = _factory.DbContext.Set<NewsEntity>().ToList();
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.GetAsync(new Uri("/news", UriKind.Relative));
+            var result = await _client.GetAsync(new Uri("/news", UriKind.Relative));
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
@@ -91,19 +94,23 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             const int id = 1;
             var expectedResult = _factory.DbContext.Set<NewsEntity>().First(x => x.Id == id);
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.GetAsync(new Uri("/news/1", UriKind.Relative));
+            var result = await _client.GetAsync(new Uri("/news/1", UriKind.Relative));
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
             var resultValue = await result.Content.ReadFromJsonAsync<NewsModel>();
 
-            Assert.Equal(expectedResult.Id, resultValue.Id);
-            Assert.Equal(expectedResult.Title, resultValue.Title);
-            Assert.Equal(expectedResult.Body, resultValue.Body);
-            Assert.Equal(expectedResult.PublicationDate, resultValue.PublicationDate);
+            resultValue
+                .Should()
+                .BeEquivalentTo(expectedResult);
+
+            //Assert.Equal(expectedResult.Id, resultValue.Id);
+            //Assert.Equal(expectedResult.Title, resultValue.Title);          /remove after Rodchenko approve
+            //Assert.Equal(expectedResult.Body, resultValue.Body);
+            //Assert.Equal(expectedResult.PublicationDate, resultValue.PublicationDate);
         }
 
         [Fact]
@@ -112,10 +119,10 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             // Arrange
             const int id = 0;
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.GetAsync(new Uri($"/news/{id}", UriKind.Relative));
+            var result = await _client.GetAsync(new Uri($"/news/{id}", UriKind.Relative));
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
@@ -132,10 +139,10 @@ namespace Astoneti.Microservice.Media.IntegrationTests
                 Body = "Test Body",
             };
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client
+            var result = await _client
                 .PostAsJsonAsync(
                     "/news",
                     postModel
@@ -145,10 +152,14 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             Assert.Equal(HttpStatusCode.Created, result.StatusCode);
             var resultValue = await result.Content.ReadFromJsonAsync<NewsModel>();
 
-            Assert.NotNull(resultValue);
-            Assert.Equal(postModel.Id, resultValue.Id);
-            Assert.Equal(postModel.Title, resultValue.Title);
-            Assert.Equal(postModel.Body, resultValue.Body);
+            resultValue
+                .Should()
+                .BeEquivalentTo(postModel);
+
+            //Assert.NotNull(resultValue);
+            //Assert.Equal(postModel.Id, resultValue.Id);
+            //Assert.Equal(postModel.Title, resultValue.Title);  /remove after Rodchenko approve
+            //Assert.Equal(postModel.Body, resultValue.Body);
 
             var entity = Assert.Single(_factory.DbContext.Set<NewsEntity>(), x => x.Id == postModel.Id);
             Assert.NotNull(entity);
@@ -166,12 +177,13 @@ namespace Astoneti.Microservice.Media.IntegrationTests
                 Id = 1,
                 Title = "New Test Title",
                 Body = "New Test Body",
+                PublicationDate = new DateTime(2025, 03, 13)
             };
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.PutAsJsonAsync(
+            var result = await _client.PutAsJsonAsync(
                 $"/news/{putModel.Id}",
                 putModel
             );
@@ -185,6 +197,7 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             Assert.Equal(putModel.Id, entity.Id);
             Assert.Equal(putModel.Title, entity.Title);
             Assert.Equal(putModel.Body, entity.Body);
+            Assert.Equal(putModel.PublicationDate, entity.PublicationDate);
         }
 
         [Fact]
@@ -198,10 +211,10 @@ namespace Astoneti.Microservice.Media.IntegrationTests
                 Body = "Test Body",
             };
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.PutAsJsonAsync(
+            var result = await _client.PutAsJsonAsync(
                 "/news/0",
                 putModel
             );
@@ -222,10 +235,10 @@ namespace Astoneti.Microservice.Media.IntegrationTests
                 Body = "Test Body",
             };
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.PutAsJsonAsync(
+            var result = await _client.PutAsJsonAsync(
                 "/news/0",
                 putModel
             );
@@ -240,12 +253,12 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             // Arrange
             const int id = 1;
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.DeleteAsync(new Uri($"/news/{id}", UriKind.Relative));
+            var result = await _client.DeleteAsync(new Uri($"/news/{id}", UriKind.Relative));
 
-            var notFoundResult = await client.GetAsync(new Uri($"/news/{id}", UriKind.Relative));
+            var notFoundResult = await _client.GetAsync(new Uri($"/news/{id}", UriKind.Relative));
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
@@ -258,10 +271,10 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             // Arrange
             const int id = 0;
 
-            var client = _factory.CreateClient();
+            _client = _factory.CreateClient();
 
             // Act
-            var result = await client.DeleteAsync(new Uri($"/news/{id}", UriKind.Relative));
+            var result = await _client.DeleteAsync(new Uri($"/news/{id}", UriKind.Relative));
 
             // Assert
             Assert.Equal(HttpStatusCode.NotFound, result.StatusCode);
