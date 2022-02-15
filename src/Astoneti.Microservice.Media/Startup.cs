@@ -26,7 +26,10 @@ namespace Astoneti.Microservice.Media
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<MediaDbContext>(options =>
-              options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+              options.UseSqlServer(Configuration
+              .GetConnectionString("DefaultConnection")
+                  )
+              );
 
             services.AddAutoMapper(typeof(Startup));
 
