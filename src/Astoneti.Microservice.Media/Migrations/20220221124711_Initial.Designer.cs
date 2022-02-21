@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Astoneti.Microservice.Media.Migrations
 {
     [DbContext(typeof(MediaDbContext))]
-    [Migration("20220215125000_Initial")]
+    [Migration("20220221124711_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -31,7 +31,7 @@ namespace Astoneti.Microservice.Media.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("NewsId")
+                    b.Property<int>("NewsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -69,7 +69,9 @@ namespace Astoneti.Microservice.Media.Migrations
                 {
                     b.HasOne("Astoneti.Microservice.Media.Data.Entities.NewsEntity", "News")
                         .WithMany("Comments")
-                        .HasForeignKey("NewsId");
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("News");
                 });

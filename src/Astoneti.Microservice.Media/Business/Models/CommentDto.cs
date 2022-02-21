@@ -10,8 +10,6 @@ namespace Astoneti.Microservice.Media.Business.Models
 
         public DateTime CreatedDate { get; set; }
 
-        public int? NewsId { get; set; }
-
-        public NewsDto News { get; set; }
+        public int NewsId { get; set; }
     }
 }

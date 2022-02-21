@@ -29,7 +29,7 @@ namespace Astoneti.Microservice.Media.Migrations
                     b.Property<DateTime>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int?>("NewsId")
+                    b.Property<int>("NewsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Text")
@@ -67,7 +67,9 @@ namespace Astoneti.Microservice.Media.Migrations
                 {
                     b.HasOne("Astoneti.Microservice.Media.Data.Entities.NewsEntity", "News")
                         .WithMany("Comments")
-                        .HasForeignKey("NewsId");
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("News");
                 });

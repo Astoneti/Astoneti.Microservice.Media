@@ -30,7 +30,7 @@ namespace Astoneti.Microservice.Media.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Text = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     CreatedDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    NewsId = table.Column<int>(type: "int", nullable: true)
+                    NewsId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,7 @@ namespace Astoneti.Microservice.Media.Migrations
                         column: x => x.NewsId,
                         principalTable: "News",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
