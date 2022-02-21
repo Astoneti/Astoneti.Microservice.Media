@@ -10,5 +10,7 @@ namespace Astoneti.Microservice.Media.Data
         {
         }
         public DbSet<NewsEntity> News { get; set; }
+
+        public DbSet<CommentEntity> Comments { get; set; }
     }
 }

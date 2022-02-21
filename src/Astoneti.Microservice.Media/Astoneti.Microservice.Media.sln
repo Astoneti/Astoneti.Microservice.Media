@@ -3,15 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Astoneti.Microservice.Media", "Astoneti.Microservice.Media.csproj", "{36318432-0F06-41C8-AFE2-3F8FD3A256DC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Astoneti.Microservice.Media", "Astoneti.Microservice.Media.csproj", "{36318432-0F06-41C8-AFE2-3F8FD3A256DC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{9CBCE2CD-6709-44EE-A50A-DCA4D1AA52A8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7A2F518C-DAFB-4DF2-98DF-2206C3CFD9ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Astoneti.Microservice.Media.IntegrationTests", "..\Astoneti.Microservice.Media.IntegrationTests\Astoneti.Microservice.Media.IntegrationTests.csproj", "{DEB1C08C-6E02-4EA0-92FC-51BD22163A2C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Astoneti.Microservice.Media.IntegrationTests", "..\Astoneti.Microservice.Media.IntegrationTests\Astoneti.Microservice.Media.IntegrationTests.csproj", "{DEB1C08C-6E02-4EA0-92FC-51BD22163A2C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Astoneti.Microservice.Media.Tests", "..\Astoneti.Microservice.Media.Tests\Astoneti.Microservice.Media.Tests.csproj", "{E39AF610-69C2-4BF1-B24F-B09A69B42F01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Astoneti.Microservice.Media.Tests", "..\Astoneti.Microservice.Media.Tests\Astoneti.Microservice.Media.Tests.csproj", "{E39AF610-69C2-4BF1-B24F-B09A69B42F01}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ConsoleApp", "ConsoleApp", "{67D73563-EC75-4669-9A7D-32C30FDB61C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{DA3432D6-EB12-4184-94AB-D5BF302A1AA5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{395C8FD4-CEDB-498C-B919-77A481B11C27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Astoneti.Service.NewsWorker", "..\Astoneti.Service.NewsWorker\Astoneti.Service.NewsWorker.csproj", "{6603CC6F-582B-41CE-B520-57BA5963E12B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +39,10 @@ Global
 		{E39AF610-69C2-4BF1-B24F-B09A69B42F01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E39AF610-69C2-4BF1-B24F-B09A69B42F01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E39AF610-69C2-4BF1-B24F-B09A69B42F01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6603CC6F-582B-41CE-B520-57BA5963E12B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6603CC6F-582B-41CE-B520-57BA5963E12B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6603CC6F-582B-41CE-B520-57BA5963E12B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6603CC6F-582B-41CE-B520-57BA5963E12B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +51,9 @@ Global
 		{36318432-0F06-41C8-AFE2-3F8FD3A256DC} = {9CBCE2CD-6709-44EE-A50A-DCA4D1AA52A8}
 		{DEB1C08C-6E02-4EA0-92FC-51BD22163A2C} = {7A2F518C-DAFB-4DF2-98DF-2206C3CFD9ED}
 		{E39AF610-69C2-4BF1-B24F-B09A69B42F01} = {7A2F518C-DAFB-4DF2-98DF-2206C3CFD9ED}
+		{DA3432D6-EB12-4184-94AB-D5BF302A1AA5} = {67D73563-EC75-4669-9A7D-32C30FDB61C8}
+		{395C8FD4-CEDB-498C-B919-77A481B11C27} = {67D73563-EC75-4669-9A7D-32C30FDB61C8}
+		{6603CC6F-582B-41CE-B520-57BA5963E12B} = {DA3432D6-EB12-4184-94AB-D5BF302A1AA5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {8850D4EC-CEF2-4966-885F-CA4D941A5B15}

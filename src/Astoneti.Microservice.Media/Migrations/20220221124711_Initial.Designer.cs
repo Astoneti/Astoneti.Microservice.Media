@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Astoneti.Microservice.Media.Migrations
 {
     [DbContext(typeof(MediaDbContext))]
-    [Migration("20220211145923_MigrationInitial")]
-    partial class MigrationInitial
+    [Migration("20220221124711_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,29 @@ namespace Astoneti.Microservice.Media.Migrations
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.1");
+
+            modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.CommentEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .UseIdentityColumn();
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("NewsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Text")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("NewsId");
+
+                    b.ToTable("Comments");
+                });
 
             modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.NewsEntity", b =>
                 {
@@ -40,6 +63,22 @@ namespace Astoneti.Microservice.Media.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("News");
+                });
+
+            modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.CommentEntity", b =>
+                {
+                    b.HasOne("Astoneti.Microservice.Media.Data.Entities.NewsEntity", "News")
+                        .WithMany("Comments")
+                        .HasForeignKey("NewsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("News");
+                });
+
+            modelBuilder.Entity("Astoneti.Microservice.Media.Data.Entities.NewsEntity", b =>
+                {
+                    b.Navigation("Comments");
                 });
 #pragma warning restore 612, 618
         }

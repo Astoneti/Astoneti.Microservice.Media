@@ -71,7 +71,7 @@ namespace Astoneti.Microservice.Media.IntegrationTests
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
 
-            var resultValue = await result.Content.ReadFromJsonAsync<IList<NewsModel>>();
+            var resultValue = await result.Content.ReadFromJsonAsync<IList<NewsEntity>>();
 
             Assert.Equal(expectedlist.Count, resultValue.Count);
 
@@ -101,7 +101,7 @@ namespace Astoneti.Microservice.Media.IntegrationTests
 
             // Assert
             Assert.Equal(HttpStatusCode.OK, result.StatusCode);
-            var resultValue = await result.Content.ReadFromJsonAsync<NewsModel>();
+            var resultValue = await result.Content.ReadFromJsonAsync<NewsEntity>();
 
             resultValue
                 .Should()

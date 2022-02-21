@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Astoneti.Microservice.Media.Data.Entities
 {
@@ -11,5 +12,7 @@ namespace Astoneti.Microservice.Media.Data.Entities
         public string Body { get; set; }
 
         public DateTime PublicationDate { get; set; }
+
+        public List<CommentEntity> Comments { get; set; }
     }
 }
