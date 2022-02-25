@@ -1,57 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
-using System.Net.Http.Json;
+﻿using Astoneti.Service.NewsWorker.Contracts;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Astoneti.Service.NewsWorker
 {
     public class Program
     {
-        private static readonly HttpClient client = new();
-
-        private static async Task<IList<News>> GetDataFromAPI()
-        {
-            return await client.GetFromJsonAsync<IList<News>>("https://localhost:5001/news");
-        }
-
-        private static async Task<IList<News>> PostDataFromConsoleToAPI()
-        {
-            return await client.PostAsJsonAsync<News>("https://localhost:5001/news");
-        }
-
         public static async Task Main(string[] args)
         {
-            try
-            {
-                Console.WriteLine("API import starting...");
+            var services = ConfigureServices();
 
-                var news = await GetDataFromAPI();
+            var serviceProvider = services.BuildServiceProvider();
 
-                foreach (var n in news)
-                    Console.WriteLine(
-                       $"News List : { n.Id }, " +
-                       $"{ n.Title }, " +
-                       $"{ n.Body }, " +
-                       $"{ n.PublicationDate }"
-                 );
+            await serviceProvider.GetService<AppSetup>().RunAsync();
+        }
 
-                Console.WriteLine(
-                    "Total News is : " 
-                    + news.Count
-                 );
+        private static IServiceCollection ConfigureServices()
+        {
+            IServiceCollection services = new ServiceCollection();
 
-                Console.WriteLine(
-                    "API import ended successfully"
-                 );
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(
-                    "Error : " 
-                    + ex.Message
-                 );
-            }
+            var config = Configuration();
+
+            services
+                .AddSingleton(config);
+            services
+                .AddScoped<INewsServiceConsole, NewsServiceConsole>();
+            services
+                .AddScoped<INewsProviderConsole, NewsProviderConsole>();
+
+            services
+                .AddScoped<AppSetup>();
+
+            return services;
+        }
+
+        public static IConfiguration Configuration()
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory());
+
+            return builder
+                .Build();
         }
     }
 }

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Astoneti.Service.NewsWorker
+namespace Astoneti.Service.NewsWorker.Models
 {
     public class News
     {
@@ -9,6 +9,6 @@ namespace Astoneti.Service.NewsWorker
 
         public string Body { get; set; }
 
-        public DateTime PublicationDate { get; set; }
+        public DateTime PublicationDate = DateTime.Now;
     }
 }

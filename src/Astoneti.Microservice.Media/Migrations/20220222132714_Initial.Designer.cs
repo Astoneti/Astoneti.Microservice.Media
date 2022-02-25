@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Astoneti.Microservice.Media.Migrations
 {
     [DbContext(typeof(MediaDbContext))]
-    [Migration("20220221124711_Initial")]
+    [Migration("20220222132714_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
